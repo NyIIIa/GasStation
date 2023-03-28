@@ -4,7 +4,8 @@ The GasStation application is designed to assist with fuel calculations at gas s
 
 # Service Architecture
 
-By following the Domain-Driven Design (DDD) principle, we have established a service architecture that is both robust and adaptable. To explore an architecture in greater detail, I recommend visiting the [link provided]("https://github.com/NyIIIa/GasStation/tree/feature/doc") for an extensive overview.
+By following the Domain-Driven Design (DDD) principle, we have established a service architecture that is both robust and adaptable. To explore an architecture in greater detail, I recommend visiting the 
+[link provided](https://github.com/NyIIIa/GasStation/tree/feature/doc) for an extensive overview.
 
 # Technologies
 > Note: The list below may be expanded
