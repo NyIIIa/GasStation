@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E546266A-BF63-4DAD-9C97-CBC930D0D061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation.Application", "src\GasStation.Application\GasStation.Application.csproj", "{BA6213E9-5C10-487F-A8A4-1D7DF8429685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation.Domain", "src\GasStation.Domain\GasStation.Domain.csproj", "{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA6213E9-5C10-487F-A8A4-1D7DF8429685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6213E9-5C10-487F-A8A4-1D7DF8429685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6213E9-5C10-487F-A8A4-1D7DF8429685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6213E9-5C10-487F-A8A4-1D7DF8429685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA6213E9-5C10-487F-A8A4-1D7DF8429685} = {E546266A-BF63-4DAD-9C97-CBC930D0D061}
+		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7} = {E546266A-BF63-4DAD-9C97-CBC930D0D061}
+	EndGlobalSection
+EndGlobal
