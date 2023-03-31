@@ -7,16 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Fuel\Create" />
-    <Folder Include="Commands\Fuel\Update" />
     <Folder Include="Commands\Invoice\Create" />
     <Folder Include="Commands\Invoice\Delete" />
     <Folder Include="Commands\Invoice\Update" />
     <Folder Include="Commands\Report\Create" />
     <Folder Include="Commands\Report\Delete" />
     <Folder Include="Commands\Report\Update" />
-    <Folder Include="Common\Interfaces\Services" />
-    <Folder Include="Queries\Fuel\GetAll" />
     <Folder Include="Queries\Invoice\GetAll" />
     <Folder Include="Queries\Report\GetAll" />
   </ItemGroup>

@@ -6,4 +6,4 @@ public interface IDateTimeService
     /// Get current date in the unix time milliseconds
     /// </summary>
     long Now { get; }
-}
+    }
