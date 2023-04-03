@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Report\Create" />
-    <Folder Include="Commands\Report\Delete" />
-    <Folder Include="Commands\Report\Update" />
-    <Folder Include="Queries\Report\GetAll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
   </ItemGroup>

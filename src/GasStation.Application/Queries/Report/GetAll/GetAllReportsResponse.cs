@@ -1,15 +1,14 @@
 using GasStation.Domain.Enums;
 
-namespace GasStation.Domain.Entities;
+namespace GasStation.Application.Queries.Report.GetAll;
 
-public class Report
+public class GetAllReportsResponse
 {
-    public int Id { get; set; }
     public string Title { get; set; } = null!;
     public decimal TotalPrice { get; set; }
     public double TotalQuantity { get; set; }
     public long StartDate { get; set; }
     public long EndDate { get; set; }
     public TransactionType TransactionType { get; set; }
-    public IEnumerable<Invoice> Invoices { get; set; } = null!; 
+    public IEnumerable<Domain.Entities.Invoice> Invoices { get; set; } = null!;
 }
