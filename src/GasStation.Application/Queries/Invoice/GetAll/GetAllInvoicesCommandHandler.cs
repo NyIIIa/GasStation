@@ -1,4 +1,6 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
+using GasStation.Application.Queries.Fuel.GetAll;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +9,12 @@ namespace GasStation.Application.Queries.Invoice.GetAll;
 public class GetAllInvoicesCommandHandler : IRequestHandler<GetAllInvoicesRequest, IEnumerable<GetAllInvoicesResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public GetAllInvoicesCommandHandler(IApplicationDbContext dbContext)
+    public GetAllInvoicesCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<GetAllInvoicesResponse>> Handle(GetAllInvoicesRequest request, CancellationToken cancellationToken)
@@ -18,18 +22,7 @@ public class GetAllInvoicesCommandHandler : IRequestHandler<GetAllInvoicesReques
         var invoices = await _dbContext.Invoices
             .Include(i => i.Fuel)
             .ToListAsync(cancellationToken);
-
-        //further possible using AutoMapper
-        return invoices.Select(i => new GetAllInvoicesResponse()
-        {
-            Title = i.Title,
-            CreatedDate = i.CreatedDate,
-            TransactionType = i.TransactionType,
-            Consumer = i.Consumer,
-            Provider = i.Provider,
-            TotalPrice = i.TotalPrice,
-            TotalFuelQuantity = i.TotalFuelQuantity,
-            FuelTitle = i.Fuel.Title
-        });
+        
+        return _mapper.Map<IEnumerable<GetAllInvoicesResponse>>(invoices);
     }
 }

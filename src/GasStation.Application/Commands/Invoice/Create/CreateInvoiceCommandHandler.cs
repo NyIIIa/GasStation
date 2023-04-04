@@ -1,3 +1,4 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using GasStation.Application.Common.Interfaces.Services;
 using GasStation.Domain.Enums;
@@ -9,12 +10,12 @@ namespace GasStation.Application.Commands.Invoice.Create;
 public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceRequest, CreateInvoiceResponse>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IDateTimeService _dateTimeService;
+    private readonly IMapper _mapper;
 
-    public CreateInvoiceCommandHandler(IApplicationDbContext dbContext, IDateTimeService dateTimeService)
+    public CreateInvoiceCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
-        _dateTimeService = dateTimeService;
+        _mapper = mapper;
     }
 
     public async Task<CreateInvoiceResponse> Handle(CreateInvoiceRequest request, CancellationToken cancellationToken)
@@ -23,24 +24,14 @@ public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceRequest,
         { 
             throw new Exception("The invoice with specified title already exists!");
         }
-
+        
         var fuel = await _dbContext.Fuels
-                        .FirstOrDefaultAsync(f => f.Title == request.FuelTitle, cancellationToken) 
-                        ?? throw new Exception("The fuel with specified title doesn't exist!");
-
-        //further possible using AutoMapper
-        var invoice = new Domain.Entities.Invoice()
-        {
-            Title = request.Title,
-            CreatedDate = _dateTimeService.Now,
-            TransactionType = request.TransactionType,
-            Consumer = request.Consumer,
-            Provider = request.Provider,
-            TotalFuelQuantity = request.TotalFuelQuantity,
-            TotalPrice = fuel.Price * (decimal) request.TotalFuelQuantity,
-            Fuel = fuel
-        };
-
+                       .FirstOrDefaultAsync(f => f.Title == request.FuelTitle, cancellationToken) 
+                       ?? throw new Exception("The fuel with specified title doesn't exist!");
+        
+        var invoice = new Domain.Entities.Invoice() {Fuel = fuel};
+        _mapper.Map(request, invoice);
+        
         await _dbContext.Invoices.AddAsync(invoice, cancellationToken);
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
