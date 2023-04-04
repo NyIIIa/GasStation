@@ -1,3 +1,4 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ public class GetAllReportsCommandHandler : IRequestHandler<GetAllReportsRequest,
                                            IEnumerable<GetAllReportsResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public GetAllReportsCommandHandler(IApplicationDbContext dbContext)
+    public GetAllReportsCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
     
     public async Task<IEnumerable<GetAllReportsResponse>> Handle(GetAllReportsRequest request, CancellationToken cancellationToken)
@@ -19,17 +22,7 @@ public class GetAllReportsCommandHandler : IRequestHandler<GetAllReportsRequest,
         var reports = await _dbContext.Reports
                             .Include(r => r.Invoices)
                             .ToListAsync(cancellationToken);
-        
-        //further possible using AutoMapper
-        return reports.Select(r => new GetAllReportsResponse()
-        {
-            Title = r.Title,
-            TotalPrice = r.TotalPrice,
-            TotalQuantity = r.TotalQuantity,
-            StartDate = r.StartDate,
-            EndDate = r.EndDate,
-            TransactionType = r.TransactionType,
-            Invoices = r.Invoices
-        });
+
+        return _mapper.Map<IEnumerable<GetAllReportsResponse>>(reports);
     }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 
@@ -6,10 +7,12 @@ namespace GasStation.Application.Commands.Report.Create;
 public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, CreateReportResponse>
 {
     private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public CreateReportCommandHandler(IApplicationDbContext dbContext)
+    public CreateReportCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
     
     public async Task<CreateReportResponse> Handle(CreateReportRequest request, CancellationToken cancellationToken)
@@ -22,18 +25,9 @@ public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, C
         var invoices = _dbContext.Invoices
                 .Where(i => i.TransactionType == request.TransactionType & 
                 (i.CreatedDate >= request.StartDate & i.CreatedDate <= request.EndDate));
-        
-        //further possible using AutoMapper
-        var report = new Domain.Entities.Report()
-        {
-            Title = request.Title,
-            Invoices = invoices,
-            TotalPrice = invoices.Sum(s => s.TotalPrice),
-            TotalQuantity = invoices.Sum(s => s.TotalFuelQuantity),
-            StartDate = request.StartDate,
-            EndDate = request.EndDate,
-            TransactionType = request.TransactionType
-        };
+
+        var report = new Domain.Entities.Report() {Invoices = invoices};
+        _mapper.Map(request, report);
         
         await _dbContext.Reports.AddAsync(report, cancellationToken);
         var result = await _dbContext.SaveChangesAsync(cancellationToken);

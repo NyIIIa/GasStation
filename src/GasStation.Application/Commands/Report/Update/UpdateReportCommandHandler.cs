@@ -1,3 +1,4 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,10 +8,12 @@ namespace GasStation.Application.Commands.Report.Update;
 public class UpdateReportCommandHandler : IRequestHandler<UpdateReportRequest, UpdateReportResponse>
 {
     private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public UpdateReportCommandHandler(IApplicationDbContext dbContext)
+    public UpdateReportCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
     
     public async Task<UpdateReportResponse> Handle(UpdateReportRequest request, CancellationToken cancellationToken)
@@ -23,8 +26,8 @@ public class UpdateReportCommandHandler : IRequestHandler<UpdateReportRequest, U
         var report = await _dbContext.Reports
                          .FirstOrDefaultAsync(r => r.Title == request.CurrentTitle, cancellationToken)
                          ?? throw new Exception("The report with specified title doesn't exist!");
-        report.Title = request.NewTitle;
-
+        _mapper.Map(request, report);
+        
         _dbContext.Reports.Update(report);
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
         
