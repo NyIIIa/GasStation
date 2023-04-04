@@ -1,30 +1,25 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace GasStation.Application.Queries.Fuel.GetAll;
 
 public class GetAllFuelsCommandHandler : IRequestHandler<GetAllFuelsRequest, IEnumerable<GetAllFuelsResponse>>
 {   
     private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public GetAllFuelsCommandHandler(IApplicationDbContext dbContext)
+    public GetAllFuelsCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
     
-    public Task<IEnumerable<GetAllFuelsResponse>> Handle(GetAllFuelsRequest request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GetAllFuelsResponse>> Handle(GetAllFuelsRequest request, CancellationToken cancellationToken)
     {
-        //further possible using AutoMapper
-        var fuels = _dbContext.Fuels
-            .ToList()
-            .Select(f => new GetAllFuelsResponse()
-            {
-                Title = f.Title,
-                Price = f.Price,
-                PriceChaneDate = f.PriceChangeDate,
-                Quantity = f.Quantity
-            });
+        var fuels = await _dbContext.Fuels.ToListAsync(cancellationToken);
         
-        return Task.FromResult(fuels);
+        return _mapper.Map<IEnumerable<GetAllFuelsResponse>>(fuels);
     }
 }

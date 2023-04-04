@@ -1,3 +1,4 @@
+using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using GasStation.Application.Common.Interfaces.Services;
 using MediatR;
@@ -8,12 +9,12 @@ namespace GasStation.Application.Commands.Fuel.Update;
 public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, UpdateFuelResponse>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IDateTimeService _dateTimeService;
-
-    public UpdateFuelCommandHandler(IApplicationDbContext dbContext, IDateTimeService dateTimeService)
+    private readonly IMapper _mapper;
+    
+    public UpdateFuelCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
-        _dateTimeService = dateTimeService;
+        _mapper = mapper;
     }
     
     public async Task<UpdateFuelResponse> Handle(UpdateFuelRequest request, CancellationToken cancellationToken)
@@ -24,10 +25,9 @@ public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, Updat
         {
             throw new Exception("A fuel with specified title doesn't exist!");
         }
-
-        fuel.Price = request.NewPrice;
-        fuel.PriceChangeDate = _dateTimeService.Now;
-
+        
+        _mapper.Map(request, fuel);
+        
         _dbContext.Fuels.Update(fuel);
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
         
