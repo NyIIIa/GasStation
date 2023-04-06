@@ -1,10 +1,12 @@
+using ErrorOr;
 using GasStation.Application.Common.Interfaces.Persistence;
+using GasStation.Domain.Errors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace GasStation.Application.Commands.User.Register;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, RegisterUserResponse>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, ErrorOr<RegisterUserResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
 
@@ -13,12 +15,18 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, R
         _dbContext = dbContext;
     }
     
-    public async Task<RegisterUserResponse> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<RegisterUserResponse>> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var isUserExists = _dbContext.Users.Any(u => u.Login == request.Login);
         if (isUserExists)
         {
-            throw new Exception("The user with specified login already exists!");
+            return Errors.User.DuplicateLogin;
+        }
+
+        var role = await _dbContext.Roles.FirstOrDefaultAsync(r => r.Title == request.RoleTitle, cancellationToken);
+        if (role is null)
+        {
+            return Errors.Role.TitleNotFound;
         }
         
         //generate user's password hash & password salt
@@ -28,14 +36,13 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, R
             Login = request.Login,
             PasswordHash = "",
             PasswordSalt = "",
-            Role = await _dbContext.Roles
-                .FirstOrDefaultAsync(r => r.Title == request.RoleTitle, cancellationToken)
-                ?? throw new Exception("The specified role wasn't found!")
+            Role = role
         }, cancellationToken);
 
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
-        
-        return result > 0 ? new RegisterUserResponse {IsCreated = true} 
-                    : throw new Exception("Something went wrong!");
+
+        return result > 0
+            ? new RegisterUserResponse {IsCreated = true}
+            : Errors.Database.Unexpected;
     }
 }
