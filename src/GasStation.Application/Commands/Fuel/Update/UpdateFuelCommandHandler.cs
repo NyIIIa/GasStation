@@ -1,12 +1,14 @@
 using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
-using GasStation.Application.Common.Interfaces.Services;
 using MediatR;
+using ErrorOr;
+using GasStation.Domain.Errors;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace GasStation.Application.Commands.Fuel.Update;
 
-public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, UpdateFuelResponse>
+public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, ErrorOr<UpdateFuelResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -17,13 +19,13 @@ public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, Updat
         _mapper = mapper;
     }
     
-    public async Task<UpdateFuelResponse> Handle(UpdateFuelRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<UpdateFuelResponse>> Handle(UpdateFuelRequest request, CancellationToken cancellationToken)
     {
         var fuel = await _dbContext.Fuels
            .FirstOrDefaultAsync(f => f.Title == request.Title, cancellationToken);
         if (fuel is null)
         {
-            throw new Exception("A fuel with specified title doesn't exist!");
+            return Errors.Fuel.TitleNotFound;
         }
         
         _mapper.Map(request, fuel);
@@ -32,6 +34,6 @@ public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, Updat
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
         
         return result > 0 ? new UpdateFuelResponse() {IsUpdated = true} 
-            : throw new Exception("Something went wrong!");
+            : Errors.Database.Unexpected;
     }
 }
