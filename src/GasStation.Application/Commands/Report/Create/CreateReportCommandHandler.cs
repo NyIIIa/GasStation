@@ -1,10 +1,12 @@
 using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
+using ErrorOr;
+using GasStation.Domain.Errors;
 
 namespace GasStation.Application.Commands.Report.Create;
 
-public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, CreateReportResponse>
+public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, ErrorOr<CreateReportResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -15,11 +17,11 @@ public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, C
         _mapper = mapper;
     }
     
-    public async Task<CreateReportResponse> Handle(CreateReportRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<CreateReportResponse>> Handle(CreateReportRequest request, CancellationToken cancellationToken)
     {
         if (_dbContext.Reports.Any(r => r.Title == request.Title))
         {
-            throw new Exception("The report with specified title already exists!");
+            return Errors.Report.DuplicateTitle;
         }
 
         var invoices = _dbContext.Invoices
@@ -33,6 +35,6 @@ public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, C
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
         return result > 0 ? new CreateReportResponse() {IsCreated = true} 
-            : throw new Exception("Something went wrong!");
+            : Errors.Database.Unexpected;
     }
 }
