@@ -1,9 +1,10 @@
 using GasStation.Domain.Enums;
 using MediatR;
+using ErrorOr;
 
 namespace GasStation.Application.Commands.Invoice.Create;
 
-public class CreateInvoiceRequest : IRequest<CreateInvoiceResponse>
+public class CreateInvoiceRequest : IRequest<ErrorOr<CreateInvoiceResponse>>
 {
     public string Title { get; set; } = null!;
     public TransactionType TransactionType { get; set; }

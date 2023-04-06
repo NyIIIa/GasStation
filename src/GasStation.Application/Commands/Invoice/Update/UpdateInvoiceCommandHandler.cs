@@ -1,11 +1,13 @@
 using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
+using ErrorOr;
+using GasStation.Domain.Errors;
 using Microsoft.EntityFrameworkCore;
 
 namespace GasStation.Application.Commands.Invoice.Update;
 
-public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceRequest, UpdateInvoiceResponse>
+public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceRequest, ErrorOr<UpdateInvoiceResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -16,12 +18,15 @@ public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceRequest,
         _mapper = mapper;
     }
     
-    public async Task<UpdateInvoiceResponse> Handle(UpdateInvoiceRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<UpdateInvoiceResponse>> Handle(UpdateInvoiceRequest request, CancellationToken cancellationToken)
     {
         var invoice = await _dbContext.Invoices
             .Include(i => i.Fuel)
-            .FirstOrDefaultAsync(i => i.Title == request.CurrentTitle, cancellationToken) 
-                      ?? throw new Exception("The invoice with specified title doesn't exist!");
+            .FirstOrDefaultAsync(i => i.Title == request.CurrentTitle, cancellationToken);
+        if (invoice is null)
+        {
+            return Errors.Invoice.TitleNotFound;
+        }
 
         _mapper.Map(request, invoice);
        
@@ -29,7 +34,6 @@ public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceRequest,
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
         return result > 0 ? new UpdateInvoiceResponse() {IsUpdated = true} 
-            : throw new Exception("Something went wrong!");
-
+            : Errors.Database.Unexpected;
     }
 }

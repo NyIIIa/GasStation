@@ -1,9 +1,10 @@
 using GasStation.Domain.Enums;
 using MediatR;
+using ErrorOr;
 
 namespace GasStation.Application.Commands.Invoice.Update;
 
-public class UpdateInvoiceRequest : IRequest<UpdateInvoiceResponse>
+public class UpdateInvoiceRequest : IRequest<ErrorOr<UpdateInvoiceResponse>>
 {
     public string CurrentTitle { get; set; } = null!;
     public string NewTitle { get; set; } = null!;
