@@ -13,3 +13,4 @@ By following the Domain-Driven Design (DDD) principle, we have established a ser
  * ASP .NET Core Web API
  * EF Core
  * AutoMapper
+ * ErrorOr
