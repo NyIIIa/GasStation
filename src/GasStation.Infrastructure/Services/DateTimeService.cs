@@ -4,5 +4,6 @@ namespace GasStation.Infrastructure.Services;
 
 public class DateTimeService : IDateTimeService
 {
-    public long Now => DateTimeOffset.Now.ToUnixTimeMilliseconds();
+    public long UnixTimeNow => DateTimeOffset.Now.ToUnixTimeMilliseconds();
+    public DateTime UtcNow => DateTime.UtcNow;
 }
