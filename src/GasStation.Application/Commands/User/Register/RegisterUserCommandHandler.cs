@@ -35,7 +35,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, E
         {
             Login = request.Login,
             PasswordHash = "",
-            PasswordSalt = "",
             Role = role
         }, cancellationToken);
 
