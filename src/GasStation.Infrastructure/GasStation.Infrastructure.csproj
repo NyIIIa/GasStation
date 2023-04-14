@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations" />
-    <Folder Include="Context" />
-    <Folder Include="Services" />
+    <ProjectReference Include="..\GasStation.Application\GasStation.Application.csproj" />
   </ItemGroup>
 
 </Project>
