@@ -35,6 +35,6 @@ public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, E
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
         return result > 0 ? new CreateReportResponse() {IsCreated = true} 
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

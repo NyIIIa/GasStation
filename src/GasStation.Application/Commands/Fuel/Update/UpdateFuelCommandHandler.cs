@@ -34,6 +34,6 @@ public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, Error
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
         
         return result > 0 ? new UpdateFuelResponse() {IsUpdated = true} 
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

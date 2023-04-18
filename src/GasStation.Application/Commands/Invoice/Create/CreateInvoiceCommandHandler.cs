@@ -39,6 +39,6 @@ public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceRequest,
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
         return result > 0 ? new CreateInvoiceResponse() {IsCreated = true} 
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

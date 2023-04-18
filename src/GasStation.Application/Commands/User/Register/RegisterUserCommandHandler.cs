@@ -43,6 +43,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, E
 
         return result > 0
             ? new RegisterUserResponse {IsCreated = true}
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

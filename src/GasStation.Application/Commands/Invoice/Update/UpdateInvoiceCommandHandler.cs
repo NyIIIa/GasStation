@@ -34,6 +34,6 @@ public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceRequest,
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
         return result > 0 ? new UpdateInvoiceResponse() {IsUpdated = true} 
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }
