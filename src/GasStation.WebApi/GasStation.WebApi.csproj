@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GasStation.Application\GasStation.Application.csproj" />
     <ProjectReference Include="..\GasStation.Infrastructure\GasStation.Infrastructure.csproj" />
   </ItemGroup>
