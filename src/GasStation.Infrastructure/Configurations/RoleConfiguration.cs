@@ -17,6 +17,6 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         //Base roles
         builder.HasData(
             new Role() {Id = 1, Title = "Admin"},
-            new Role() {Id = 1, Title = "User"});
+            new Role() {Id = 2, Title = "User"});
     }
 }
