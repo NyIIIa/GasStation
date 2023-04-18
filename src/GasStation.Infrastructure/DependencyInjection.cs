@@ -1,9 +1,12 @@
 using System.Text;
 using GasStation.Application.Common.Interfaces.Authentication;
+using GasStation.Application.Common.Interfaces.Persistence;
 using GasStation.Application.Common.Interfaces.Services;
 using GasStation.Infrastructure.Authentication;
+using GasStation.Infrastructure.Context;
 using GasStation.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -15,6 +18,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddDbContext<GasStationDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString(ConnectionString.DefaultSectionName)));
+        services.AddScoped<IApplicationDbContext>(provider => provider.GetService<GasStationDbContext>());
+        
         services.AddAuth(configuration);
         
         services.AddSingleton<IDateTimeService, DateTimeService>();
