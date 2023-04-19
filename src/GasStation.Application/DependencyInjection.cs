@@ -1,6 +1,8 @@
 using System.Reflection;
+using AutoMapper;
 using FluentValidation;
 using GasStation.Application.Common.Behavior;
+using GasStation.Application.Common.Interfaces.Services;
 using GasStation.Application.Mappings;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +22,18 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         ValidatorOptions.Global.LanguageManager.Enabled = false;
         
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddSingleton(provider => new MapperConfiguration(cfg =>
+        {
+            var dateTimeProvider = provider.GetService<IDateTimeService>();
+            
+            cfg.AddProfiles(new List<Profile>()
+            {
+                new FuelProfile(dateTimeProvider),
+                new InvoiceProfile(dateTimeProvider),
+                new ReportProfile()
+            });
+        }).CreateMapper());
+        
         return services;
     }
 }
