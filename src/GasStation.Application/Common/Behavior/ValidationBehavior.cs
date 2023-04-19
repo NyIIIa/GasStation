@@ -5,7 +5,7 @@ using MediatR;
 namespace GasStation.Application.Common.Behavior;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TRequest>
+    where TRequest : IRequest<TResponse>
     where TResponse : IErrorOr
 {
     private readonly IValidator<TRequest>? _validator;
