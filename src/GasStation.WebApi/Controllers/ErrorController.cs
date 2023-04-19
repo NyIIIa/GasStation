@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GasStation.WebApi.Controllers;
 
 [Route("/error")]
+[ApiExplorerSettings(IgnoreApi = true)]
 public class ErrorController : ControllerBase
 {
     public IActionResult Error()
