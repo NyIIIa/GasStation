@@ -16,8 +16,10 @@ public static class DependencyInjection
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
             typeof(ValidationBehavior<,>));
-
+        
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        ValidatorOptions.Global.LanguageManager.Enabled = false;
+        
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         return services;
     }
