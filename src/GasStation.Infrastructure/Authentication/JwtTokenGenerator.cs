@@ -25,7 +25,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     {
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
-            SecurityAlgorithms.Sha256);
+            SecurityAlgorithms.HmacSha256Signature);
         
         var claims = new[]
         {
