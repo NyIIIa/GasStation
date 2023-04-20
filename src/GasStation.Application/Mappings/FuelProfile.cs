@@ -25,6 +25,6 @@ public class FuelProfile : Profile
         CreateMap<UpdateFuelRequest, Fuel>()
             .ForMember(f => f.Title, opt => opt.Ignore())
             .ForMember(f => f.Price, opt => opt.MapFrom(src => src.NewPrice))
-            .ForMember(f => f.PriceChangeDate, opt => opt.MapFrom(src => _dateTimeService.Now));
+            .ForMember(f => f.PriceChangeDate, opt => opt.MapFrom(src => _dateTimeService.UnixTimeNow));
     }
 }

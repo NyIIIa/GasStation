@@ -10,7 +10,7 @@ public static partial class Errors
             code: "User.DuplicateLogin",
             description: "The user with specified login already exists!");
         
-        public static Error InvalidCredentials => Error.Failure(
+        public static Error InvalidCredentials => Error.Validation(
             code: "User.InvalidLogin",
             description: "Invalid credentials!");
     }

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation.Application", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation.Domain", "src\GasStation.Domain\GasStation.Domain.csproj", "{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation.Infrastructure", "src\GasStation.Infrastructure\GasStation.Infrastructure.csproj", "{A9727E8F-F98C-4439-BA55-63E654131972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation.WebApi", "src\GasStation.WebApi\GasStation.WebApi.csproj", "{0E0226C8-38EE-459F-99DC-99B993AB81E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +30,19 @@ Global
 		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9727E8F-F98C-4439-BA55-63E654131972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9727E8F-F98C-4439-BA55-63E654131972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9727E8F-F98C-4439-BA55-63E654131972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9727E8F-F98C-4439-BA55-63E654131972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E0226C8-38EE-459F-99DC-99B993AB81E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E0226C8-38EE-459F-99DC-99B993AB81E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E0226C8-38EE-459F-99DC-99B993AB81E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E0226C8-38EE-459F-99DC-99B993AB81E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA6213E9-5C10-487F-A8A4-1D7DF8429685} = {E546266A-BF63-4DAD-9C97-CBC930D0D061}
 		{A1F5C43B-214A-4F93-BF6D-B0E0B49C34E7} = {E546266A-BF63-4DAD-9C97-CBC930D0D061}
+		{A9727E8F-F98C-4439-BA55-63E654131972} = {E546266A-BF63-4DAD-9C97-CBC930D0D061}
+		{0E0226C8-38EE-459F-99DC-99B993AB81E0} = {E546266A-BF63-4DAD-9C97-CBC930D0D061}
 	EndGlobalSection
 EndGlobal

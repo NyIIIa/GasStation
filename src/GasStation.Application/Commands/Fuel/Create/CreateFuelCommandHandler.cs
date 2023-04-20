@@ -31,6 +31,6 @@ public class CreateFuelCommandHandler : IRequestHandler<CreateFuelRequest, Error
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
        return result > 0 ? new CreateFuelResponse() {IsCreated = true} 
-           : Errors.Database.Unexpected;
+           : Errors.Database.Fail;
     }
 }

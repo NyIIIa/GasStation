@@ -1,4 +1,5 @@
 using ErrorOr;
+using GasStation.Application.Common.Authentication;
 using GasStation.Application.Common.Interfaces.Persistence;
 using GasStation.Domain.Errors;
 using MediatR;
@@ -28,14 +29,13 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, E
         {
             return Errors.Role.TitleNotFound;
         }
-        
-        //generate user's password hash & password salt
+
+        var passwordHash = PasswordHasher.Hash(request.Password);
         
         await _dbContext.Users.AddAsync(new Domain.Entities.User()
         {
             Login = request.Login,
-            PasswordHash = "",
-            PasswordSalt = "",
+            PasswordHash = passwordHash,
             Role = role
         }, cancellationToken);
 
@@ -43,6 +43,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserRequest, E
 
         return result > 0
             ? new RegisterUserResponse {IsCreated = true}
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

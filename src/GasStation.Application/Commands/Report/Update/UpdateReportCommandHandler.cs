@@ -38,6 +38,6 @@ public class UpdateReportCommandHandler : IRequestHandler<UpdateReportRequest, E
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
         
         return result > 0 ? new UpdateReportResponse() {IsUpdated = true} 
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

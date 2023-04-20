@@ -17,7 +17,7 @@ public class InvoiceProfile : Profile
 
         //Convert CreateInvoiceRequest to Invoice
         CreateMap<CreateInvoiceRequest, Invoice>()
-            .ForMember(i => i.CreatedDate, opt => opt.MapFrom(src => _dateTimeService.Now))
+            .ForMember(i => i.CreatedDate, opt => opt.MapFrom(src => _dateTimeService.UnixTimeNow))
             .ForMember(i => i.TotalPrice, 
                 opt => opt.MapFrom((src, invoice) => invoice.Fuel.Price * (decimal)src.TotalFuelQuantity));
         

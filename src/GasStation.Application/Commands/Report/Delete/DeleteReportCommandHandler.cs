@@ -28,6 +28,6 @@ public class DeleteReportCommandHandler : IRequestHandler<DeleteReportRequest, E
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
         
         return result > 0 ? new DeleteReportResponse() {IsDeleted = true} 
-            : Errors.Database.Unexpected;
+            : Errors.Database.Fail;
     }
 }

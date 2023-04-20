@@ -4,5 +4,5 @@ public class Role
 {
     public int Id { get; set; } 
     public string Title { get; set; } = null!;
-    public User User { get; set; } = null!;
+    public IEnumerable<User> User { get; set; } = null!;
 }
