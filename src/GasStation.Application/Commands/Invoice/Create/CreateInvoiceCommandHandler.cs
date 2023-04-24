@@ -2,6 +2,7 @@ using AutoMapper;
 using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 using ErrorOr;
+using GasStation.Domain.Enums;
 using GasStation.Domain.Errors;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,12 +33,17 @@ public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceRequest,
             return Errors.Fuel.TitleNotFound;
         }
         
+        //TODO # 1
+        //Verify if request.TransactionType == TransactionType.Sell => request.TotalFuelQuantity < fuel.Quantity  
+        
         var invoice = new Domain.Entities.Invoice() {Fuel = fuel};
         _mapper.Map(request, invoice);
         
         await _dbContext.Invoices.AddAsync(invoice, cancellationToken);
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
        
+        //TODO #2
+        //If result > 0 => send a notification to message bus that invoice has created
         return result > 0 ? new CreateInvoiceResponse() {IsCreated = true} 
             : Errors.Database.Fail;
     }

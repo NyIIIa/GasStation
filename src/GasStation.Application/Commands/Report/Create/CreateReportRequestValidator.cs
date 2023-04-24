@@ -6,7 +6,7 @@ public class CreateReportRequestValidator : AbstractValidator<CreateReportReques
 {
     public CreateReportRequestValidator()
     {
-        RuleFor(x => x.Title).Length(5, 60);
+        RuleFor(x => x.Title).NotNull().Length(5, 60);
         RuleFor(x => x.TransactionType).NotNull();
     }
 }
