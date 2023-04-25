@@ -6,7 +6,7 @@ public class UpdateInvoiceRequestValidator : AbstractValidator<UpdateInvoiceRequ
 {
     public UpdateInvoiceRequestValidator()
     {
-        RuleFor(x => x.CurrentTitle).NotNull();
+        RuleFor(x => x.Id).Must(x => x > 0);
         RuleFor(x => x.NewTitle).NotNull();
         RuleFor(x => x.TransactionType).NotNull();
         RuleFor(x => x.Consumer).NotNull();

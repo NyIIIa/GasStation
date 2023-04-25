@@ -47,7 +47,7 @@ public class UpdateFuelCommandHandlerTests
         //Arrange
         var updateFuelRequest = new UpdateFuelRequest()
         {
-            Title = "A93",
+            Id = 1,
             NewPrice = (decimal) 35.74
         };
         
@@ -58,6 +58,7 @@ public class UpdateFuelCommandHandlerTests
         Assert.False(errorOr.IsError);
         _dbContext.Verify(f => f.Fuels.Update(It.IsAny<Domain.Entities.Fuel>()), Times.Once);
     }
+    
 
     [Fact]
     public async Task Should_Not_Update_When_Command_Is_Invalid()
@@ -65,7 +66,7 @@ public class UpdateFuelCommandHandlerTests
         //Arrange
         var updateFuelRequest = new UpdateFuelRequest()
         {
-            Title = "",
+            Id = -4,
             NewPrice = (decimal) -35.32
         };
         
@@ -79,12 +80,12 @@ public class UpdateFuelCommandHandlerTests
     }
 
     [Fact]
-    public async Task Should_Throw_TitleNotFound_Error_When_Title_Was_Not_Found()
+    public async Task Should_Throw_TitleNotFound_Error_When_Id_Was_Not_Found()
     {
         //Arrange
         var updateFuelRequest = new UpdateFuelRequest()
         {
-            Title = "A44",
+            Id = 55,
             NewPrice = (decimal)33.55
         };
         

@@ -49,7 +49,7 @@ public class UpdateInvoiceCommandHandlerTests
         //Arrange
         var updateInvoiceRequest = new UpdateInvoiceRequest()
         {
-            CurrentTitle = "Fuel Invoice # 1",
+            Id = 55,
             NewTitle = "Fuel Purchase Order Invoice",
             Consumer = "our GasStation",
             Provider = "OKO",
@@ -80,12 +80,12 @@ public class UpdateInvoiceCommandHandlerTests
     }
 
     [Fact]
-    public async Task Should_Throw_TitleNotFound_Error_When_Invoice_Not_Found()
+    public async Task Should_Throw_IdNotFound_Error_When_Invoice_Not_Found()
     {
         //Arrange
         var updateInvoiceRequest = new UpdateInvoiceRequest()
         {
-            CurrentTitle = "Wrong Title",
+            Id = 45,
             NewTitle = "Fuel Purchase Order Invoice",
             Consumer = "our GasStation",
             Provider = "OKO",

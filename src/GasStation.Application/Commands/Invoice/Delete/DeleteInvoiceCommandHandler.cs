@@ -18,10 +18,10 @@ public class DeleteInvoiceCommandHandler : IRequestHandler<DeleteInvoiceRequest,
     public async Task<ErrorOr<DeleteInvoiceResponse>> Handle(DeleteInvoiceRequest request, CancellationToken cancellationToken)
     {
         var invoice = await _dbContext.Invoices
-            .FirstOrDefaultAsync(i => i.Title == request.Title, cancellationToken);
+            .FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
         if (invoice is null)
         {
-            return Errors.Invoice.TitleNotFound;
+            return Errors.Invoice.IdNotFound;
         }
 
         _dbContext.Invoices.Remove(invoice);

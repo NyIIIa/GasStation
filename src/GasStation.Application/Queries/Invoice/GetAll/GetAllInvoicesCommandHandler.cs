@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GasStation.Application.Queries.Invoice.GetAll;
 
-public class GetAllInvoicesCommandHandler : IRequestHandler<GetAllInvoicesRequest, IEnumerable<GetAllInvoicesResponse>>
+public class GetAllInvoicesCommandHandler : IRequestHandler<GetAllInvoicesRequest, IReadOnlyList<GetAllInvoicesResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -17,12 +17,12 @@ public class GetAllInvoicesCommandHandler : IRequestHandler<GetAllInvoicesReques
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<GetAllInvoicesResponse>> Handle(GetAllInvoicesRequest request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<GetAllInvoicesResponse>> Handle(GetAllInvoicesRequest request, CancellationToken cancellationToken)
     {
         var invoices = await _dbContext.Invoices
             .Include(i => i.Fuel)
             .ToListAsync(cancellationToken);
         
-        return _mapper.Map<IEnumerable<GetAllInvoicesResponse>>(invoices);
+        return _mapper.Map<IReadOnlyList<GetAllInvoicesResponse>>(invoices);
     }
 }

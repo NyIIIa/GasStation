@@ -20,12 +20,19 @@ public class UpdateInvoiceCommandHandler : IRequestHandler<UpdateInvoiceRequest,
     
     public async Task<ErrorOr<UpdateInvoiceResponse>> Handle(UpdateInvoiceRequest request, CancellationToken cancellationToken)
     {
+        //Verify NewTitle is available to use
+        var isTitleExists = _dbContext.Invoices.Any(i => i.Title == request.NewTitle);
+        if (isTitleExists)
+        {
+            return Errors.Invoice.DuplicateTitle;
+        }
+        
         var invoice = await _dbContext.Invoices
             .Include(i => i.Fuel)
-            .FirstOrDefaultAsync(i => i.Title == request.CurrentTitle, cancellationToken);
+            .FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
         if (invoice is null)
         {
-            return Errors.Invoice.TitleNotFound;
+            return Errors.Invoice.IdNotFound;
         }
 
         _mapper.Map(request, invoice);

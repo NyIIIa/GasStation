@@ -15,7 +15,7 @@ The follow diagram provides a high-level overview of the GasStation's DDD archit
 
 <div align="center">
 
-<img src="images/DDD-Layer.png" alt="drawing" width="700px"/>
+<img src="GasStation.Docs/DDD-Architecture/DDD-Layer.png" alt="drawing" width="700px"/>
 
 </div>
 
@@ -27,7 +27,7 @@ Below is an ER diagram for GasStation, which illustrates the relationships betwe
 
 <div align="center">
 
-<img src="images/ER-Diagram.png" alt="drawing" width="1000px"/>
+<img src="GasStation.Docs/Uml/ER-Diagram.png" alt="drawing" width="1000px"/>
 
 </div>
 
@@ -39,6 +39,6 @@ In the diagram presented below, you can see a visual representation of the users
 
 <div align="center">
 
-<img src="images/UseCase-Diagram.png" alt="drawing" width="800px"/>
+<img src="GasStation.Docs/Uml/UseCase-Diagram.png" alt="drawing" width="800px"/>
 
 </div>
