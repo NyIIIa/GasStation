@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GasStation.Application.Queries.Fuel.GetAll;
 
-public class GetAllFuelsCommandHandler : IRequestHandler<GetAllFuelsRequest, IEnumerable<GetAllFuelsResponse>>
+public class GetAllFuelsCommandHandler : IRequestHandler<GetAllFuelsRequest, IReadOnlyList<GetAllFuelsResponse>>
 {   
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -16,10 +16,10 @@ public class GetAllFuelsCommandHandler : IRequestHandler<GetAllFuelsRequest, IEn
         _mapper = mapper;
     }
     
-    public async Task<IEnumerable<GetAllFuelsResponse>> Handle(GetAllFuelsRequest request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<GetAllFuelsResponse>> Handle(GetAllFuelsRequest request, CancellationToken cancellationToken)
     {
         var fuels = await _dbContext.Fuels.ToListAsync(cancellationToken);
         
-        return _mapper.Map<IEnumerable<GetAllFuelsResponse>>(fuels);
+        return _mapper.Map<IReadOnlyList<GetAllFuelsResponse>>(fuels);
     }
 }
