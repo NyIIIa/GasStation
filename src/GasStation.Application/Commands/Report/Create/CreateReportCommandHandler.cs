@@ -3,6 +3,7 @@ using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 using ErrorOr;
 using GasStation.Domain.Errors;
+using Microsoft.EntityFrameworkCore;
 
 namespace GasStation.Application.Commands.Report.Create;
 
@@ -24,9 +25,10 @@ public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, E
             return Errors.Report.DuplicateTitle;
         }
 
-        var invoices = _dbContext.Invoices
+        var invoices = await _dbContext.Invoices
                 .Where(i => i.TransactionType == request.TransactionType & 
-                (i.CreatedDate >= request.StartDate & i.CreatedDate <= request.EndDate));
+                (i.CreatedDate >= request.StartDate & i.CreatedDate <= request.EndDate))
+                .ToListAsync(cancellationToken);
 
         var report = new Domain.Entities.Report() {Invoices = invoices};
         _mapper.Map(request, report);
