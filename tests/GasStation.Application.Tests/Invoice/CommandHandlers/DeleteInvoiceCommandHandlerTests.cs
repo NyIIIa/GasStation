@@ -41,7 +41,7 @@ public class DeleteInvoiceCommandHandlerTests
         //Arrange
         var deleteInvoiceRequest = new DeleteInvoiceRequest()
         {
-            Title = "Fuel Invoice # 1"
+            Id = 1,
         };
         
         //Act
@@ -67,12 +67,12 @@ public class DeleteInvoiceCommandHandlerTests
     }
 
     [Fact]
-    public async Task Should_Throw_TitleNotFound_Error_When_Invoice_Was_Not_Found()
+    public async Task Should_Throw_IdNotFound_Error_When_Invoice_Was_Not_Found()
     {
         //Arrange
         var deleteInvoiceRequest = new DeleteInvoiceRequest()
         {
-            Title = "Wrong Title"
+            Id = 54
         };
         
         //Act
