@@ -6,6 +6,6 @@ public class DeleteInvoiceRequestValidator : AbstractValidator<DeleteInvoiceRequ
 {
     public DeleteInvoiceRequestValidator()
     {
-        RuleFor(x => x.Title).NotNull();
+        RuleFor(x => x.Id).Must(x => x > 0);
     }
 }

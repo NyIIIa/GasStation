@@ -6,7 +6,7 @@ namespace GasStation.Application.Commands.Invoice.Update;
 
 public class UpdateInvoiceRequest : IRequest<ErrorOr<UpdateInvoiceResponse>>
 {
-    public string CurrentTitle { get; set; } = null!;
+    public int Id { get; set; }
     public string NewTitle { get; set; } = null!;
     public TransactionType TransactionType { get; set; }
     public string Consumer { get; set; } = null!;
