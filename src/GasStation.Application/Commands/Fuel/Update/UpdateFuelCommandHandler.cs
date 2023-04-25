@@ -22,7 +22,7 @@ public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelRequest, Error
     public async Task<ErrorOr<UpdateFuelResponse>> Handle(UpdateFuelRequest request, CancellationToken cancellationToken)
     {
         var fuel = await _dbContext.Fuels
-           .FirstOrDefaultAsync(f => f.Title == request.Title, cancellationToken);
+           .FirstOrDefaultAsync(f => f.Id == request.Id, cancellationToken);
         if (fuel is null)
         {
             return Errors.Fuel.TitleNotFound;
