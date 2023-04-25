@@ -11,7 +11,7 @@ public static partial class Errors
             description: "The user with specified login already exists!");
         
         public static Error InvalidCredentials => Error.Validation(
-            code: "User.InvalidLogin",
+            code: "User.InvalidCredentials",
             description: "Invalid credentials!");
     }
 }

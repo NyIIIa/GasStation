@@ -24,8 +24,6 @@ public static class DependencyInjection
         services.AddAuth(configuration);
         
         services.AddSingleton<IDateTimeService, DateTimeService>();
-
-        services.AddAuthentication();   
         
         return services;
     }
