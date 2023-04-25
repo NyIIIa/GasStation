@@ -10,6 +10,7 @@ public class ReportConfiguration : IEntityTypeConfiguration<Report>
     {
         //configure properties
         builder.Property(p => p.Title).HasMaxLength(60).IsRequired();
+        builder.HasIndex(p => p.Title).IsUnique();
         builder.Property(p => p.TransactionType).IsRequired();
 
         //configure relationships

@@ -10,7 +10,7 @@ public class FuelConfiguration : IEntityTypeConfiguration<Fuel>
     {
         //configure properties
         builder.Property(p => p.Title).HasMaxLength(10).IsRequired();
-        
+        builder.HasIndex(p => p.Title).IsUnique();
         
         //configure relationships
         builder.HasMany(f => f.Invoices).WithOne(i => i.Fuel);

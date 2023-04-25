@@ -10,6 +10,7 @@ public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
     {
         //configure properties
         builder.Property(p => p.Title).HasMaxLength(30).IsRequired();
+        builder.HasIndex(p => p.Title).IsUnique();
         builder.Property(p => p.TransactionType).IsRequired();
         builder.Property(p => p.Consumer).HasMaxLength(30).IsRequired();
         builder.Property(p => p.Provider).HasMaxLength(30).IsRequired();

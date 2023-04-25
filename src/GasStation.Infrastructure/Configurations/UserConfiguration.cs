@@ -10,7 +10,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         //configure properties
         builder.Property(p => p.Login).HasMaxLength(20).IsRequired();
-
+        builder.HasIndex(p => p.Login).IsUnique();
+        
         //configure relationship
         builder.HasOne(u => u.Role).WithMany(r => r.User);
     }
