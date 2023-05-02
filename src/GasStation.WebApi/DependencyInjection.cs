@@ -1,15 +1,20 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using GasStation.WebApi.CORS;
+using Microsoft.OpenApi.Models;
 
 namespace GasStation.WebApi;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddPresentation(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(this IServiceCollection services,
+                                                    ConfigurationManager configurationManager)
     {
         services.AddControllers();
+
+        #region Add SwaggerUI
+
         services.AddSwaggerGen(c => {
             c.SwaggerDoc("v1", new OpenApiInfo {
-                Title = "JWTToken_Auth_API", Version = "v1"
+                Title = "GasStation_Web_API", Version = "v1"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme() {
                 Name = "Authorization",
@@ -31,6 +36,26 @@ public static class DependencyInjection
                 }
             });
         });
+
+        #endregion
+
+        #region Add CORS
+
+        var corsSettings = new CorsSettings();
+        configurationManager.Bind(CorsSettings.SectionName, corsSettings);
+        
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+                policy =>
+                {
+                    policy.WithOrigins(corsSettings.AllowedOrigins)
+                          .WithMethods(corsSettings.AllowedMethods)
+                          .AllowAnyHeader();
+                });
+        });
+        
+        #endregion
         
         return services;
     }
