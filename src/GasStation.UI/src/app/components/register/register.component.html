@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Registration</h2>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputLogin">Login</label>
+            <input formControlName="login" type="text" class="form-control" id="exampleInputLogin" placeholder="Enter login">
+          </div>
+          <div *ngIf="submitted && f['login'].errors">
+            <small *ngIf="f['login'].errors['required']" class="text-danger">Login is required</small>
+            <small *ngIf="f['login'].errors['minlength']" class="text-danger">Login must be > 5 symbols</small>
+            <small *ngIf="f['login'].errors['maxlength']" class="text-danger">Login must be < 20 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputPassword1">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div *ngIf="submitted && f['password'].errors">
+            <small *ngIf="f['password'].errors['required']" class="text-danger">Password is required</small>
+            <small *ngIf="f['password'].errors['minlength']" class="text-danger">Password must be > 5 symbols</small>
+            <small *ngIf="f['password'].errors['maxlength']" class="text-danger">Password must be < 20 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputRole">Role</label>
+            <select formControlName="role" class="form-select" id="exampleInputRole">
+              <option value="" disabled selected>Select your role</option>
+              <option>Admin</option>
+              <option>User</option>
+            </select>
+            <div *ngIf="submitted && f['role'].errors">
+              <small *ngIf="f['role'].errors['required']" class="text-danger">Role is required</small>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
