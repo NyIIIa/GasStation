@@ -14,3 +14,6 @@ By following the Domain-Driven Design (DDD) principle, we have established a ser
  * EF Core
  * AutoMapper
  * ErrorOr
+ * MediatR
+ * Angular
+ * Fluent Validation
