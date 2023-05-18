@@ -4,9 +4,11 @@ using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 using ErrorOr;
 using GasStation.Application.Common.Behavior;
+using GasStation.Application.Common.Interfaces.Services;
 using GasStation.Application.Mappings;
 using GasStation.Application.Tests.Invoice;
 using GasStation.Domain.Enums;
+using GasStation.Infrastructure.Services;
 using Moq;
 using Xunit;
 
@@ -17,6 +19,7 @@ public class CreateReportCommandHandlerTests
     private readonly IPipelineBehavior<CreateReportRequest, ErrorOr<CreateReportResponse>> _pipelineBehavior;
     private readonly Mock<IApplicationDbContext> _dbContext;
     private readonly CreateReportCommandHandler _createReportCommandHandler;
+    private readonly IDateTimeService _dateTimeService;
     private readonly IMapper _mapper;
     
     public CreateReportCommandHandlerTests()
@@ -25,13 +28,13 @@ public class CreateReportCommandHandlerTests
 
         _pipelineBehavior = new ValidationBehavior<CreateReportRequest, ErrorOr<CreateReportResponse>>
             (new CreateReportRequestValidator());
-        
+        _dateTimeService = new DateTimeService();
         _dbContext = new Mock<IApplicationDbContext>();
         ReportDbSetPreparation.SetUpReportDbSet(_dbContext);
         InvoiceDbSetPreparation.SetUpInvoiceDbSet(_dbContext);
 
         _mapper = new MapperConfiguration(cfg =>
-            cfg.AddProfile(new ReportProfile())).CreateMapper();
+            cfg.AddProfile(new ReportProfile(_dateTimeService))).CreateMapper();
 
         #endregion
         
