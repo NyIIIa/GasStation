@@ -2,6 +2,7 @@
 using GasStation.Application.Commands.Invoice.Delete;
 using GasStation.Application.Commands.Invoice.Update;
 using GasStation.Application.Queries.Invoice.GetAll;
+using GasStation.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +39,7 @@ public class InvoiceController : ApiController
     }
 
     [HttpDelete("delete")]
-    public async Task<IActionResult> Delete(DeleteInvoiceRequest deleteInvoiceRequest)
+    public async Task<IActionResult> Delete([FromBody] DeleteInvoiceRequest deleteInvoiceRequest)
     {
         var deleteInvoiceResponse = await _mediator.Send(deleteInvoiceRequest);
         

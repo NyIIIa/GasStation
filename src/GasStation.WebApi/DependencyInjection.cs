@@ -1,4 +1,7 @@
-﻿using GasStation.WebApi.CORS;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using GasStation.WebApi.CORS;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
 namespace GasStation.WebApi;
@@ -8,7 +11,12 @@ public static class DependencyInjection
     public static IServiceCollection AddPresentation(this IServiceCollection services,
                                                     ConfigurationManager configurationManager)
     {
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(opt =>
+        {
+            opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            opt.JsonSerializerOptions.WriteIndented = true;
+        });
 
         #region Add SwaggerUI
 
