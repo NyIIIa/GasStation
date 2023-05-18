@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Role} from "../../models/enums/Role";
-import {AuthService} from "./auth.service";
 import {UserStoreService} from "../userstore/user-store.service";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class RoleAuthorisationServiceService {
+export class RoleAuthorisationService {
   private userRole!: Role;
   constructor(private userStoreService: UserStoreService) { }
 

@@ -1,2 +1,38 @@
-<p>fuels-table works!</p>
-<app-add-fuel *ngIf="CanAdd"></app-add-fuel>
+<div class="container">
+  <div class="row w-75 mt-5">
+    <div class="col">
+      <h1>Fuels table</h1>
+    </div>
+    <div *ngIf="canAdd" class="col d-flex justify-content-end">
+      <button class="btn btn-success btn-rounded" routerLink="/add-fuel">Add fuel</button>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table mb-0 w-75 border bg-white">
+          <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Price change date</th>
+            <th *ngIf="canAdd" scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let fuel of fuels">
+            <th scope="row" style="color: #666666;">{{fuel.title}}</th>
+            <td>{{fuel.quantity}}</td>
+            <td>{{fuel.price}}</td>
+            <td>{{fuel.priceChangeDate}}</td>
+            <td *ngIf="canEdit"><button class="border-0 bg-transparent color-edit-link" (click)="editFuel(fuel)">
+              <fa-icon size="lg" [icon]="faEdit"></fa-icon>
+            </button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

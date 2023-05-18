@@ -15,6 +15,7 @@ import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {Role} from "./models/enums/Role";
+import {ViewReportInvoicesComponent} from "./components/report/view-report-invoices/view-report-invoices.component";
 
 const adminAccess : Role[] = [Role.Admin];
 const generalAccess : Role[] = [Role.Admin, Role.User];
@@ -39,7 +40,8 @@ const routes: Routes = [
   {path: 'reports', component: ReportsTableComponent, canActivate: [AuthGuard], data: {roles: generalAccess}},
   {path: 'add-report', component: AddReportComponent, canActivate: [AuthGuard], data: {roles: generalAccess}},
   {path: 'delete-report', component: DeleteReportComponent, canActivate: [AuthGuard], data: {roles: generalAccess}},
-  {path: 'update-report', component: UpdateReportComponent, canActivate: [AuthGuard], data: {roles: generalAccess}}
+  {path: 'update-report', component: UpdateReportComponent, canActivate: [AuthGuard], data: {roles: generalAccess}},
+  {path: 'view-report-invoices', component: ViewReportInvoicesComponent, canActivate: [AuthGuard], data: {roles: generalAccess}}
 ];
 
 @NgModule({

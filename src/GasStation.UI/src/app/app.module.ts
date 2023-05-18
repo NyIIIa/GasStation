@@ -19,8 +19,24 @@ import { UpdateFuelComponent } from './components/fuel/update-fuel/update-fuel.c
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ErrorCatchingInterceptor} from "./interceptors/error-catching.interceptor";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {TokenInterceptor} from "./interceptors/token.interceptor";
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
+import { ViewReportInvoicesComponent } from './components/report/view-report-invoices/view-report-invoices.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatNativeDateModule} from "@angular/material/core";
+
+
+
+export const interceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorCatchingInterceptor, multi: true},
+  { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
+]
 
 @NgModule({
   declarations: [
@@ -37,23 +53,26 @@ import {ToastrModule} from "ngx-toastr";
     UpdateInvoiceComponent,
     FuelsTableComponent,
     AddFuelComponent,
-    UpdateFuelComponent
+    UpdateFuelComponent,
+    ViewReportInvoicesComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        ToastrModule.forRoot(),
-        HttpClientModule
-    ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorCatchingInterceptor,
-      multi: true
-    }
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    HttpClientModule,
+    FontAwesomeModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
+  providers: [interceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

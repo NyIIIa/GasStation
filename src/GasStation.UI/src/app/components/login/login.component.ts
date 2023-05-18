@@ -13,6 +13,7 @@ import {Role} from "../../models/enums/Role";
 })
 
 export class LoginComponent implements OnInit {
+  private roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
   loginForm!: FormGroup;
   submitted = false;
 
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
           this.loginForm.reset();
           this.authService.setJwtTokenInLocalStorage(res.token);
           let userPayload = this.authService.decodedJwtToken();
-          this.userStoreService.setRoleForStore(Role[userPayload.Role as keyof typeof Role]);
+          this.userStoreService.setRoleForStore(Role[userPayload[this.roleClaim] as keyof typeof Role]);
           this.toast.success('You have been successfully authenticated!', 'Authentication information!');
           this.router.navigate(['/']);
         });

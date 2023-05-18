@@ -1,0 +1,28 @@
+
+.gradient-custom-1 {
+  /* fallback for old browsers */
+  background: #cd9cf2;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+}
+
+table td,
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+tbody td {
+  font-weight: 500;
+  color: #999999;
+}
+
+.btn{
+  width: 120px;
+  height: 35px;
+  background-color: #323761;
+}

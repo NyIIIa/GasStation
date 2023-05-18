@@ -1,1 +1,68 @@
-<p>add-invoice works!</p>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Add new invoice</h2>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="addInvoiceForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputTitleOfInvoice">Invoice title</label>
+            <input formControlName="title" type="text" class="form-control" id="exampleInputTitleOfInvoice" placeholder="Enter title of invoice">
+          </div>
+          <div *ngIf="submitted && f['title'].errors">
+            <small *ngIf="f['title'].errors['required']" class="text-danger">Title is required</small>
+            <small *ngIf="f['title'].errors['minlength']" class="text-danger">Title must be >= 5 symbols</small>
+            <small *ngIf="f['title'].errors['maxlength']" class="text-danger">Login must be <= 30 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputTransactionTypeOfInvoice">Transaction Type</label>
+            <select formControlName="transactionType" class="form-select" id="exampleInputTransactionTypeOfInvoice">
+              <option disabled selected>Select transaction type of invoice</option>
+              <option>Buy</option>
+              <option>Sell</option>
+            </select>
+          </div>
+          <div *ngIf="submitted && f['transactionType'].errors">
+            <small *ngIf="f['transactionType'].errors['required']" class="text-danger">Transaction type is required</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputConsumerOfInvoice">Consumer name</label>
+            <input formControlName="consumer" type="text" class="form-control" id="exampleInputConsumerOfInvoice" placeholder="Enter consumer name">
+          </div>
+          <div *ngIf="submitted && f['consumer'].errors">
+            <small *ngIf="f['consumer'].errors['required']" class="text-danger">Consumer name is required</small>
+            <small *ngIf="f['consumer'].errors['min']" class="text-danger">Consumer name must be > 5 symbols</small>
+            <small *ngIf="f['consumer'].errors['max']" class="text-danger">Consumer name must be < 30 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputProviderOfInvoice">Provider name</label>
+            <input formControlName="provider" type="text" class="form-control" id="exampleInputProviderOfInvoice" placeholder="Enter provider name">
+          </div>
+          <div *ngIf="submitted && f['provider'].errors">
+            <small *ngIf="f['provider'].errors['required']" class="text-danger">Provider name is required</small>
+            <small *ngIf="f['provider'].errors['min']" class="text-danger">Provider name must be > 5 symbols</small>
+            <small *ngIf="f['provider'].errors['max']" class="text-danger">Provider name must be < 30 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputTotalFuelQuantityOfInvoice">Total fuel quantity</label>
+            <input formControlName="totalFuelQuantity" type="number" class="form-control" id="exampleInputTotalFuelQuantityOfInvoice" placeholder="Enter total fuel quantity">
+          </div>
+          <div *ngIf="submitted && f['totalFuelQuantity'].errors">
+            <small *ngIf="f['totalFuelQuantity'].errors['required']" class="text-danger">Total fuel quantity is required</small>
+            <small *ngIf="f['totalFuelQuantity'].errors['min']" class="text-danger">Total fuel quantity must be > 0 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputFuelTitleOfInvoice">Fuel title</label>
+            <input formControlName="fuelTitle" type="text" class="form-control" id="exampleInputFuelTitleOfInvoice" placeholder="Enter fuel title">
+          </div>
+          <div *ngIf="submitted && f['fuelTitle'].errors">
+            <small *ngIf="f['fuelTitle'].errors['required']" class="text-danger">Fuel title is required</small>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Add a new invoice</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,1 +1,24 @@
-<p>update-report works!</p>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Update report with title "{{reportToEdit.title}}"</h2>
+      </div>
+      <div class="panel-body w-50">
+        <form [formGroup]="reportEditForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputNewTitleOfReport">New title</label>
+            <input formControlName="newTitle" type="text" class="form-control" id="exampleInputNewTitleOfReport"
+                   placeholder="Enter a new title of report">
+          </div>
+          <div *ngIf="submitted && f['newTitle'].errors">
+            <small *ngIf="f['newTitle'].errors['required']" class="text-danger">Report title is required</small>
+            <small *ngIf="f['newTitle'].errors['minlength']" class="text-danger">Report title should be >= 5 symbols</small>
+            <small *ngIf="f['newTitle'].errors['maxlength']" class="text-danger">Report title should be <= 60 symbols</small>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Update report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

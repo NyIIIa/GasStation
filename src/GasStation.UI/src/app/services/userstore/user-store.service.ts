@@ -7,6 +7,7 @@ import {AuthService} from "../authentication/auth.service";
   providedIn: 'root'
 })
 export class UserStoreService {
+  private roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
   private role$= new BehaviorSubject<Role>(Role.None);
 
   constructor(private authService: AuthService) { }
@@ -15,7 +16,7 @@ export class UserStoreService {
     if(this.role$.value == 0){
       if(this.authService.isLoggedIn()){
         let userPayload = this.authService.decodedJwtToken();
-        this.setRoleForStore(Role[userPayload.Role as keyof typeof Role]);
+        this.setRoleForStore(Role[userPayload[this.roleClaim] as keyof typeof Role]);
       }
     }
     return this.role$.asObservable();

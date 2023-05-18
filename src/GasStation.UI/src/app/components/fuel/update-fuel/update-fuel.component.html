@@ -1,1 +1,22 @@
-<p>update-fuel works!</p>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Update price of fuel {{fuelToEdit.title}}</h2>
+      </div>
+      <div class="panel-body w-50">
+        <form [formGroup]="editFuelForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputNewPriceOfFuel">New price</label>
+            <input formControlName="newPrice" type="number" class="form-control" id="exampleInputNewPriceOfFuel" placeholder="Enter a new price of fuel(per liter)">
+          </div>
+          <div *ngIf="submitted && f['newPrice'].errors">
+            <small *ngIf="f['newPrice'].errors['required']" class="text-danger">Price is required</small>
+            <small *ngIf="f['newPrice'].errors['min']" class="text-danger">Price must be > 0 symbols</small>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Update price</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,8 +6,15 @@ body{
 }
 
 html, body { height: 100%; }
+
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .ngx-toastr{
   min-height: 50px !important;
+}
+
+
+.color-edit-link{
+  color: #757873;
 }
