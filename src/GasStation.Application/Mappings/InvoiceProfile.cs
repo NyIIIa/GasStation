@@ -33,8 +33,7 @@ public class InvoiceProfile : Profile
                 opt => opt.MapFrom(src =>
                     (src.CreatedDate == 0)
                         ? "0"
-                        : _dateTimeService.ConvertUnixTimeToDate(src.CreatedDate).ToString("MM/dd/yyyy h:mm tt")))
-            .ForMember(response => response.FuelTitle, opt => opt.MapFrom(src => src.Fuel.Title))
+                        : _dateTimeService.ConvertUnixTimeToDate(src.CreatedDate).ToString("MM/dd/yyyy")))
             .ForMember(i => i.TransactionType, opt => opt.MapFrom(src => src.TransactionType.ToString()));
     }
 }

@@ -6,7 +6,7 @@ public class DateTimeService : IDateTimeService
 {
     private readonly DateTime _unixEpoch =
         new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-    public long UnixTimeNow => DateTimeOffset.Now.AddHours(3).ToUnixTimeMilliseconds();
+    public long UnixTimeNow => DateTimeOffset.Now.ToUnixTimeMilliseconds();
     public DateTime UtcNow => DateTime.UtcNow;
     public DateTime ConvertUnixTimeToDate(long unixTimeInMilliseconds)
     {

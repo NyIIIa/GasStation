@@ -24,12 +24,11 @@ public class CreateReportCommandHandler : IRequestHandler<CreateReportRequest, E
         {
             return Errors.Report.DuplicateTitle;
         }
-
+        
         var invoices = await _dbContext.Invoices
-                .Where(i => i.TransactionType == request.TransactionType & 
-                (i.CreatedDate >= request.StartDate & i.CreatedDate <= request.EndDate))
+            .Where(i => i.TransactionType == request.TransactionType & (i.CreatedDate >= request.StartDate & i.CreatedDate <= request.EndDate))
                 .ToListAsync(cancellationToken);
-
+        
         var report = new Domain.Entities.Report() {Invoices = invoices};
         _mapper.Map(request, report);
         

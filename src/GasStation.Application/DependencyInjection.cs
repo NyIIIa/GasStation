@@ -30,7 +30,7 @@ public static class DependencyInjection
             {
                 new FuelProfile(dateTimeProvider),
                 new InvoiceProfile(dateTimeProvider),
-                new ReportProfile()
+                new ReportProfile(dateTimeProvider)
             });
         }).CreateMapper());
         

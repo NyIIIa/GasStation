@@ -12,5 +12,5 @@ public class GetAllInvoicesResponse
     public string Provider { get; set; } = null!;        
     public decimal TotalPrice { get; set; } 
     public double TotalFuelQuantity { get; set; }
-    public string FuelTitle { get; set; } = null!;
+    public Domain.Entities.Fuel Fuel { get; set; } = null!;
 }
