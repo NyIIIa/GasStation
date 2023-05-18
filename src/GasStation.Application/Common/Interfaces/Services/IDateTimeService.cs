@@ -11,4 +11,6 @@ public interface IDateTimeService
     /// Get the current date and time on this computer, expressed as the Coordinated Universal Time (UTC).
     /// </summary>
     DateTime UtcNow { get; }
+
+    DateTime ConvertUnixTimeToDate(long unixTimeInMilliseconds);
 }

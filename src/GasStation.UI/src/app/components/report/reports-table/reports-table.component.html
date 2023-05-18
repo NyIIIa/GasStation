@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row w-75 mt-5">
+    <div class="col">
+      <h1>Reports table</h1>
+    </div>
+    <div *ngIf="canAdd" class="col d-flex justify-content-end">
+      <button class="btn btn-success btn-rounded" routerLink="/add-report">Add report</button>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table mb-0 w-75 border bg-white">
+          <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Total price</th>
+            <th scope="col">Total quantity</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+            <th scope="col">Transaction type</th>
+            <th scope="col">Invoices</th>
+            <th *ngIf="canEdit" scope="col"></th>
+            <th *ngIf="canDelete" scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let report of reports">
+            <th scope="row" style="color: #666666;">{{report.title}}</th>
+            <td>{{report.totalPrice}}</td>
+            <td>{{report.totalQuantity}}</td>
+            <td>{{report.startDate}}</td>
+            <td>{{report.endDate}}</td>
+            <td>{{report.transactionType}}</td>
+            <td><button (click)="viewReportInvoices(report)" class="border-0 bg-transparent">View invoices</button></td>
+            <td *ngIf="canEdit"><button class="border-0 bg-transparent color-edit-link" (click)="editReport(report)">
+              <fa-icon size="lg" [icon]="faEdit"></fa-icon>
+            </button></td>
+            <td *ngIf="canDelete"><button class="border-0 bg-transparent color-edit-link" (click)="openDeleteWindow(report)">
+              <fa-icon size="lg" [icon]="faDelete"></fa-icon>
+            </button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

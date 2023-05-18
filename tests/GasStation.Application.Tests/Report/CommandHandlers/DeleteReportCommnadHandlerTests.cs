@@ -37,7 +37,7 @@ public class DeleteReportCommandHandlerTests
         //Arrange
         var deleteReportRequest = new DeleteReportRequest()
         {
-            Title = "Some title for report"
+            Id = 1
         };
         
         //Act
@@ -68,7 +68,7 @@ public class DeleteReportCommandHandlerTests
         //Arrange
         var deleteReportRequest = new DeleteReportRequest()
         {
-            Title = "The wrong title of report"
+            Id = 423
         };
         
         //Act

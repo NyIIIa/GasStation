@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\GasStation.Application\GasStation.Application.csproj" />
+      <ProjectReference Include="..\..\src\GasStation.Infrastructure\GasStation.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

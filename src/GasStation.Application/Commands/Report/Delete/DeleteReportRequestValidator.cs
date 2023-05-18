@@ -6,6 +6,6 @@ public class DeleteReportRequestValidator : AbstractValidator<DeleteReportReques
 {
     public DeleteReportRequestValidator()
     {
-        RuleFor(x => x.Title).NotNull();
+        RuleFor(x => x.Id).NotNull();
     }
 }

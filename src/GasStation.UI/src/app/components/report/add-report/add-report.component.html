@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Add new report</h2>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="addReportForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputTitleOfReport">Report title</label>
+            <input formControlName="title" type="text" class="form-control" id="exampleInputTitleOfReport" placeholder="Enter title of invoice">
+          </div>
+          <div *ngIf="submitted && f['title'].errors">
+            <small *ngIf="f['title'].errors['required']" class="text-danger">Title is required</small>
+            <small *ngIf="f['title'].errors['minlength']" class="text-danger">Title must be >= 5 symbols</small>
+            <small *ngIf="f['title'].errors['maxlength']" class="text-danger">Login must be <= 60 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <mat-form-field class="example-form-field">
+              <mat-label>Choose start - end date</mat-label>
+              <mat-date-range-input [rangePicker]="campaignOnePicker">
+                <input matStartDate placeholder="Start date" formControlName="startDate">
+                <input matEndDate placeholder="End date" formControlName="endDate">
+              </mat-date-range-input>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+            </mat-form-field>
+            <div *ngIf="submitted && f['startDate'].errors">
+              <small *ngIf="f['startDate'].errors['required']" class="text-danger">The start date is required</small>
+            </div>
+            <div *ngIf="submitted && f['endDate'].errors">
+              <small *ngIf="f['endDate'].errors['required']" class="text-danger">The end date is required</small>
+            </div>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputTransactionTypeOfInvoice">Transaction Type</label>
+            <select formControlName="transactionType" class="form-select" id="exampleInputTransactionTypeOfInvoice">
+              <option disabled selected>Select transaction type of invoice</option>
+              <option>Buy</option>
+              <option>Sell</option>
+            </select>
+          </div>
+          <div *ngIf="submitted && f['transactionType'].errors">
+            <small *ngIf="f['transactionType'].errors['required']" class="text-danger">Transaction type is required</small>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Add a new report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

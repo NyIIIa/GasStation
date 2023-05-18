@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Authorization</h2>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputLogin">Login</label>
+            <input formControlName="login" type="text" class="form-control" id="exampleInputLogin" placeholder="Enter login">
+          </div>
+          <div *ngIf="submitted && f['login'].errors">
+            <small *ngIf="f['login'].errors['required']" class="text-danger">Login is required</small>
+            <small *ngIf="f['login'].errors['minlength']" class="text-danger">Login must be > 5 symbols</small>
+            <small *ngIf="f['login'].errors['maxlength']" class="text-danger">Login must be < 20 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputPassword">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+          </div>
+          <div *ngIf="submitted && f['password'].errors">
+            <small *ngIf="f['password'].errors['required']" class="text-danger">Login is required</small>
+            <small *ngIf="f['password'].errors['minlength']" class="text-danger">Password must be > 5 symbols</small>
+            <small *ngIf="f['password'].errors['maxlength']" class="text-danger">Password must be < 20 symbols</small>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

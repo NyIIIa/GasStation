@@ -19,7 +19,9 @@ public class FuelProfile : Profile
         CreateMap<CreateFuelRequest, Fuel>();
         
         //Convert Fuel to GetAllFuelsResponse
-        CreateMap<Fuel, GetAllFuelsResponse>();
+        CreateMap<Fuel, GetAllFuelsResponse>()
+            .ForMember(f => f.PriceChangeDate, opt => opt.MapFrom(src =>
+                (src.PriceChangeDate == 0) ? "" : _dateTimeService.ConvertUnixTimeToDate(src.PriceChangeDate).ToString("MM/dd/yyyy h:mm tt")));
         
         //Convert UpdateFuelRequest to Fuel
         CreateMap<UpdateFuelRequest, Fuel>()

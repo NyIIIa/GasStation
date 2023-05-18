@@ -4,7 +4,9 @@ using GasStation.Application.Common.Interfaces.Persistence;
 using MediatR;
 using ErrorOr;
 using GasStation.Application.Common.Behavior;
+using GasStation.Application.Common.Interfaces.Services;
 using GasStation.Application.Mappings;
+using GasStation.Infrastructure.Services;
 using Moq;
 using Xunit;
 
@@ -15,6 +17,7 @@ public class UpdateReportCommandHandlerTests
     private readonly IPipelineBehavior<UpdateReportRequest, ErrorOr<UpdateReportResponse>> _pipelineBehavior;
     private readonly Mock<IApplicationDbContext> _dbContext;
     private readonly UpdateReportCommandHandler _updateReportCommandHandler;
+    private readonly IDateTimeService _dateTimeService;
     private readonly IMapper _mapper;
 
     public UpdateReportCommandHandlerTests()
@@ -23,12 +26,12 @@ public class UpdateReportCommandHandlerTests
 
         _pipelineBehavior = new ValidationBehavior<UpdateReportRequest, ErrorOr<UpdateReportResponse>>
             (new UpdateReportRequestValidator());
-        
+        _dateTimeService = new DateTimeService();
         _dbContext = new Mock<IApplicationDbContext>();
         ReportDbSetPreparation.SetUpReportDbSet(_dbContext);
 
         _mapper = new MapperConfiguration(cfg =>
-            cfg.AddProfile(new ReportProfile())).CreateMapper();
+            cfg.AddProfile(new ReportProfile(_dateTimeService))).CreateMapper();
 
         #endregion
         
@@ -41,7 +44,7 @@ public class UpdateReportCommandHandlerTests
         //Arrange
         var updateReportRequest = new UpdateReportRequest()
         {
-            CurrentTitle = "Some title for report",
+            Id = 1,
             NewTitle = "Some new title for report"
         };
         
@@ -73,7 +76,7 @@ public class UpdateReportCommandHandlerTests
         //Arrange
         var updateReportRequest = new UpdateReportRequest()
         {
-            CurrentTitle = "Some title for report",
+            Id = 1,
             NewTitle = "Some title for report"
         };
         
@@ -86,12 +89,12 @@ public class UpdateReportCommandHandlerTests
     }
 
     [Fact]
-    public async Task Should_Throw_TitleNotFound_Error_When_Current_Title_Was_Not_Found()
+    public async Task Should_Throw_TitleNotFound_Error_When_Id_Was_Not_Found()
     {
         //Arrange
         var updateReportRequest = new UpdateReportRequest()
         {
-            CurrentTitle = "The wrong title of report",
+            Id = 553,
             NewTitle = "The new title of report"
         };
         

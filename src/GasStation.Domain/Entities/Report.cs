@@ -11,5 +11,5 @@ public class Report
     public long StartDate { get; set; }
     public long EndDate { get; set; }
     public TransactionType TransactionType { get; set; }
-    public IEnumerable<Invoice> Invoices { get; set; } = null!; 
+    public IEnumerable<Invoice> Invoices { get; set; } = null!;
 }

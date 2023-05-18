@@ -21,6 +21,7 @@ public class GetAllReportsCommandHandler : IRequestHandler<GetAllReportsRequest,
     {
         var reports = await _dbContext.Reports
                             .Include(r => r.Invoices)
+                            .ThenInclude(i => i.Fuel)
                             .ToListAsync(cancellationToken);
 
         return _mapper.Map<IReadOnlyList<GetAllReportsResponse>>(reports);

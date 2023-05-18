@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="panel-heading">
+        <h2>Add new fuel</h2>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="addFuelForm" (ngSubmit)="onSubmit()">
+          <div class="form-group pt-2">
+            <label for="exampleInputTitleOfFuel">Title</label>
+            <input formControlName="title" type="text" class="form-control" id="exampleInputTitleOfFuel" placeholder="Enter title of fuel">
+          </div>
+          <div *ngIf="submitted && f['title'].errors">
+            <small *ngIf="f['title'].errors['required']" class="text-danger">Title is required</small>
+            <small *ngIf="f['title'].errors['minlength']" class="text-danger">Title must be >= 2 symbols</small>
+            <small *ngIf="f['title'].errors['maxlength']" class="text-danger">Login must be <= 10 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputQuantityOfFuel">Quantity</label>
+            <input formControlName="quantity" type="number" class="form-control" id="exampleInputQuantityOfFuel" placeholder="Enter quantity of fuel">
+          </div>
+          <div *ngIf="submitted && f['quantity'].errors">
+            <small *ngIf="f['quantity'].errors['required']" class="text-danger">Quantity is required</small>
+            <small *ngIf="f['quantity'].errors['min']" class="text-danger">Quantity must be > 0 symbols</small>
+          </div>
+          <div class="form-group pt-2">
+            <label for="exampleInputPriceOfFuel">Price</label>
+            <input formControlName="price" type="number" class="form-control" id="exampleInputPriceOfFuel" placeholder="Enter price of fuel(per liter)">
+          </div>
+          <div *ngIf="submitted && f['price'].errors">
+            <small *ngIf="f['price'].errors['required']" class="text-danger">Price is required</small>
+            <small *ngIf="f['price'].errors['min']" class="text-danger">Price must be > 0 symbols</small>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Add a new fuel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

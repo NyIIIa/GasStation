@@ -26,10 +26,10 @@ public class UpdateReportCommandHandler : IRequestHandler<UpdateReportRequest, E
         }
         
         var report = await _dbContext.Reports
-                         .FirstOrDefaultAsync(r => r.Title == request.CurrentTitle, cancellationToken);
+                         .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
         if (report is null)
         {
-            return Errors.Report.TitleNotFound;
+            return Errors.Report.IdNotFound;
         }
         
         _mapper.Map(request, report);

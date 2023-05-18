@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row w-75 mt-5">
+    <div class="col">
+      <h1>Invoices table</h1>
+    </div>
+    <div *ngIf="canAdd" class="col d-flex justify-content-end">
+      <button class="btn btn-success btn-rounded" routerLink="/add-invoice">Add invoice</button>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table mb-0 w-75 border bg-white">
+          <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">CreatedDate</th>
+            <th scope="col">TransactionType</th>
+            <th scope="col">Consumer</th>
+            <th scope="col">Provider</th>
+            <th scope="col">TotalPrice</th>
+            <th scope="col">TotalFuelQuantity</th>
+            <th scope="col">FuelTitle</th>
+            <th *ngIf="canEdit" scope="col"></th>
+            <th *ngIf="canDelete" scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let invoice of invoices">
+            <th scope="row" style="color: #666666;">{{invoice.title}}</th>
+            <td>{{invoice.createdDate}}</td>
+            <td>{{invoice.transactionType}}</td>
+            <td>{{invoice.consumer}}</td>
+            <td>{{invoice.provider}}</td>
+            <td>{{invoice.totalPrice}}</td>
+            <td>{{invoice.totalFuelQuantity}}</td>
+            <td>{{invoice.fuel?.title}}</td>
+            <td *ngIf="canEdit"><button class="border-0 bg-transparent color-edit-link" (click)="editInvoice(invoice)">
+              <fa-icon size="lg" [icon]="faEdit"></fa-icon>
+            </button></td>
+            <td *ngIf="canDelete"><button class="border-0 bg-transparent color-edit-link" (click)="openDeleteWindow(invoice)">
+              <fa-icon size="lg" [icon]="faDelete"></fa-icon>
+            </button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

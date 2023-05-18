@@ -1,0 +1,33 @@
+<div mat-dialog-content>
+  <p class="fw-bold fs-5">Are you sure you want to delete this report?</p>
+  <div class="row flex-column">
+    <div class="col">
+      <mat-label>Report title:</mat-label>
+      <span class="fw-bold"> {{report.title}}</span>
+    </div>
+    <div class="col">
+      <mat-label>Total price:</mat-label>
+      <span class="fw-bold"> {{report.totalPrice}}</span>
+    </div>
+    <div class="col">
+      <mat-label>Total fuel quantity:</mat-label>
+      <span class="fw-bold"> {{report.totalQuantity}}</span>
+    </div>
+    <div class="col">
+      <mat-label>Start date:</mat-label>
+      <span class="fw-bold"> {{report.startDate}}</span>
+    </div>
+    <div class="col">
+      <mat-label>End date:</mat-label>
+      <span class="fw-bold"> {{report.endDate}}</span>
+    </div>
+    <div class="col">
+      <mat-label>Transaction type:</mat-label>
+      <span class="fw-bold"> {{report.transactionType}}</span>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-secondary" (click)="onClose()">Cancel</button>
+  <button class="btn btn-success ms-2" (click)="deleteReport()">Delete</button>
+</div>

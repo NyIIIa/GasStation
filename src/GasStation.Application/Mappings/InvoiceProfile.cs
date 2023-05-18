@@ -18,17 +18,22 @@ public class InvoiceProfile : Profile
         //Convert CreateInvoiceRequest to Invoice
         CreateMap<CreateInvoiceRequest, Invoice>()
             .ForMember(i => i.CreatedDate, opt => opt.MapFrom(src => _dateTimeService.UnixTimeNow))
-            .ForMember(i => i.TotalPrice, 
-                opt => opt.MapFrom((src, invoice) => invoice.Fuel.Price * (decimal)src.TotalFuelQuantity));
-        
+            .ForMember(i => i.TotalPrice,
+                opt => opt.MapFrom((src, invoice) => invoice.Fuel.Price * (decimal) src.TotalFuelQuantity));
+
         //Convert UpdateInvoiceRequest to Invoice
         CreateMap<UpdateInvoiceRequest, Invoice>()
             .ForMember(i => i.Title, opt => opt.MapFrom(src => src.NewTitle))
-            .ForMember(i => i.TotalPrice, 
-                opt => opt.MapFrom((src, invoice) => invoice.Fuel.Price * (decimal)src.TotalFuelQuantity));
+            .ForMember(i => i.TotalPrice,
+                opt => opt.MapFrom((src, invoice) => invoice.Fuel.Price * (decimal) src.TotalFuelQuantity));
 
         //Convert Invoice to GetAllInvoicesResponse
         CreateMap<Invoice, GetAllInvoicesResponse>()
-            .ForMember(response => response.FuelTitle, opt => opt.MapFrom(src => src.Fuel.Title));
+            .ForMember(i => i.CreatedDate,
+                opt => opt.MapFrom(src =>
+                    (src.CreatedDate == 0)
+                        ? "0"
+                        : _dateTimeService.ConvertUnixTimeToDate(src.CreatedDate).ToString("MM/dd/yyyy")))
+            .ForMember(i => i.TransactionType, opt => opt.MapFrom(src => src.TransactionType.ToString()));
     }
 }

@@ -14,8 +14,8 @@ public static partial class Errors
             code: "Report.DuplicateNewTitle",
             description: "The report with new title already exists!");
         
-        public static Error TitleNotFound => Error.NotFound(
-            code: "Report.TitleNotFound",
-            description: "A report with specified main title was not found!");
+        public static Error IdNotFound => Error.NotFound(
+            code: "Report.IdNotFound",
+            description: "A report with specified id was not found!");
     }
 }

@@ -5,6 +5,6 @@ namespace GasStation.Application.Commands.Report.Update;
 
 public class UpdateReportRequest : IRequest<ErrorOr<UpdateReportResponse>>
 {
-    public string CurrentTitle { get; set; } = null!;
+    public int Id { get; set; }
     public string NewTitle { get; set; } = null!;
 }
