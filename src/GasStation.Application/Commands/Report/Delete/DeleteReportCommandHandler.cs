@@ -18,10 +18,10 @@ public class DeleteReportCommandHandler : IRequestHandler<DeleteReportRequest, E
     public async Task<ErrorOr<DeleteReportResponse>> Handle(DeleteReportRequest request, CancellationToken cancellationToken)
     {
         var report = await _dbContext.Reports
-                         .FirstOrDefaultAsync(r => r.Title == request.Title, cancellationToken);
+                         .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
         if (report is null)
         {
-            return Errors.Report.TitleNotFound;
+            return Errors.Report.IdNotFound;
         }
         
         _dbContext.Reports.Remove(report);

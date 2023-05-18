@@ -6,7 +6,7 @@ public class UpdateReportRequestValidator : AbstractValidator<UpdateReportReques
 {
     public UpdateReportRequestValidator()
     {
-        RuleFor(x => x.CurrentTitle).NotNull();
+        RuleFor(x => x.Id).NotNull();
         RuleFor(x => x.NewTitle).NotNull().Length(5, 60);
     }
 }
